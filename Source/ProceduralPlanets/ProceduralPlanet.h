@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "RealtimeMeshSimple.h"
 #include "RealtimeMeshActor.h"
-#include "ColourSettings.h"
+// #include "ColourSettings.h"
 #include "ShapeSettings.h"
 #include "ShapeGenerator.h"
 #include "TerrainFace.h"
@@ -50,8 +50,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Procedural Settings")
 	FShapeSettings ShapeSettings;
 
-	UPROPERTY(EditAnywhere, Category = "Planet Settings")
-	FColorSettings ColorSettings;
+	// UPROPERTY(EditAnywhere, Category = "Planet Settings")
+	// FColorSettings ColorSettings;
 
 private:
 	FRealtimeMeshSectionKey StaticSectionKey;
