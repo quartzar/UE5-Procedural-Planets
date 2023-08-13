@@ -6,20 +6,12 @@
 #include "GameFramework/Actor.h"
 #include "RealtimeMeshSimple.h"
 #include "RealtimeMeshActor.h"
-// #include "NoiseFilter.h"
-// #include "NoiseSettings.h"
+#include "ColourSettings.h"
 #include "ShapeSettings.h"
 #include "ShapeGenerator.h"
 #include "TerrainFace.h"
 #include "ProceduralPlanet.generated.h"
 
-// Define the TerrainFace struct
-// struct FTerrainFace
-// {
-// 	TArray<FVector> Vertices;
-// 	TArray<int32> Triangles;
-// 	TArray<FVector> VertexNormals;
-// };
 
 UCLASS()
 class PROCEDURALPLANETS_API AProceduralPlanet : public ARealtimeMeshActor
@@ -33,8 +25,7 @@ public:
 	virtual void OnGenerateMesh_Implementation() override;
 
 	void InitialiseMesh();
-	// FTerrainFace GenerateMesh(FVector LocalUp, FVector AxisA, FVector AxisB);
-	// void ClearMesh();
+	
 	void UpdateSettings();
 
 #if WITH_EDITOR
@@ -59,43 +50,16 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Procedural Settings")
 	FShapeSettings ShapeSettings;
 
-	// UPROPERTY(EditAnywhere, Category = "Procedural Settings")
-	// FNoiseSettings NoiseSettings;
-
-	// UPROPERTY(EditAnywhere, Category = "Procedural Settings")
-	// FNoiseLayer NoiseLayer;
-
-	// UPROPERTY(EditAnywhere, Category = "Procedural Settings", Interp, meta=(ClampMin = "1"))
-	// int Resolution = 10;
-
-	// UPROPERTY(EditAnywhere, Category = "Procedural Settings", Interp)
-	// float PlanetScale = 100.f;
-
-	
+	UPROPERTY(EditAnywhere, Category = "Planet Settings")
+	FColorSettings ColorSettings;
 
 private:
-	// Create Vector3 for localUp, AxisA and AxisB
-	// FVector LocalUp;
-	// FVector AxisA;
-	// FVector AxisB;
-
-	// FRealtimeMeshSimpleMeshData MeshData;
 	FRealtimeMeshSectionKey StaticSectionKey;
-	// FRealtimeMeshSimpleMeshData MeshData;
 
 	FShapeGenerator ShapeGenerator;
-	// TArray<FFace> TerrainFaces;
-	// FFace* TerrainFaces;
 	
 	const FVector Directions[6] = {FVector::UpVector, FVector::DownVector, FVector::LeftVector, FVector::RightVector, FVector::ForwardVector, FVector::BackwardVector};
 
 	bool bMeshInitialised;
 	
-	// Arrays to hold the vertices, triangles, normals, and colors of the mesh
-	// TArray<FVector> Vertices;
-	// TArray<int32> Triangles;
-	// TArray<FVector> VertexNormals;
-	// TArray<FLinearColor> VertexColors;
-	
-
 };
