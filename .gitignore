@@ -1,0 +1,15 @@
+Saved/
+Intermediate/
+DerivedDataCache/
+*.pdb
+obj/
+*.sln
+*-Debug.*
+FileOpenOrder/
+Binaries/
+.idea/
+.vscode/
+Makefile
+*.code-workspace
+Plugins/Developer
+*.umap
