@@ -46,7 +46,7 @@ void AProceduralPlanet::InitialiseMesh()
 	TArray<FFace> TerrainFaces;
 	for (int i = 0; i < 6; i++)
 	{
-		TerrainFaces.Add(FTerrainFace(ShapeSettings, ShapeSettings.Resolution, Directions[i]).ConstructMesh());
+		TerrainFaces.Add(FTerrainFace(ShapeSettings, ShapeGenerator, ShapeSettings.Resolution, Directions[i]).ConstructMesh());
 	}
 	
 	// Combine the data from each face
@@ -97,6 +97,11 @@ void AProceduralPlanet::InitialiseMesh()
 		RealtimeMesh->UpdateSectionMesh(StaticSectionKey, MeshData);
 	}
 
+	const FMinMax& ElevationRange = ShapeGenerator.GetElevationMinMax();
+	PlanetMaterial->SetScalarParameterValue("ElevationMin", ElevationRange.GetMin());
+	UE_LOG(LogTemp, Warning ,TEXT("ElevationMin: %f"), ElevationRange.GetMin());
+	UE_LOG(LogTemp, Warning, TEXT("ElevationMax: %f"), ElevationRange.GetMax());
+	PlanetMaterial->SetScalarParameterValue("ElevationMax", ElevationRange.GetMax());
 	PlanetMaterial->SetScalarParameterValue("Radius", ShapeSettings.PlanetRadius);
 	
 	MeshData.Positions.Empty();
