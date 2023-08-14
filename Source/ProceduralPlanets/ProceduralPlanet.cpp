@@ -16,6 +16,9 @@ AProceduralPlanet::AProceduralPlanet()
 	RootComponent = DefaultSceneRoot;
 
 	bMeshInitialised = false;
+
+	// FString MaterialPath = "/Game/ProceduralPlanets/Materials/M_Planet_Inst";
+	
 	
 
 	// Initialize ShapeSettings and NoiseSettings with default values
@@ -64,6 +67,17 @@ void AProceduralPlanet::InitialiseMesh()
 	// If StaticSectionKey has not yet been created, create it
 	if (!bMeshInitialised)
 	{
+		FString MaterialPath = "/Game/ProceduralPlanets/Materials/M_Planet_Inst.M_Planet_Inst";
+		if (UMaterialInterface* Material = LoadObject<UMaterialInterface>(nullptr, *MaterialPath); IsValid(Material))
+		{
+			this->PlanetMaterial = UMaterialInstanceDynamic::Create(Material, this);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Material not found at path: %s"), *MaterialPath);
+		}
+		
+		
 		RealtimeMesh = GetRealtimeMeshComponent()->InitializeRealtimeMesh<URealtimeMeshSimple>();
 
 		// Enable async collision cooking
@@ -74,13 +88,16 @@ void AProceduralPlanet::InitialiseMesh()
 		StaticSectionKey = RealtimeMesh->CreateMeshSection(0,
 			FRealtimeMeshSectionConfig(ERealtimeMeshSectionDrawType::Static, 0),
 			MeshData, false);
-		RealtimeMesh->SetupMaterialSlot(0, "Material, Material");
+		// RealtimeMesh->SetupMaterialSlot(0, "Material, Material");
+		RealtimeMesh->SetupMaterialSlot(0, FName("Material"), PlanetMaterial);
 		bMeshInitialised = true;
 	}
 	else
 	{
 		RealtimeMesh->UpdateSectionMesh(StaticSectionKey, MeshData);
 	}
+
+	PlanetMaterial->SetScalarParameterValue("Radius", ShapeSettings.PlanetRadius);
 	
 	MeshData.Positions.Empty();
 	MeshData.Triangles.Empty();
@@ -104,7 +121,7 @@ void AProceduralPlanet::PostEditChangeProperty(FPropertyChangedEvent& PropertyCh
 	Super::PostEditChangeProperty(PropertyChangedEvent);
 	// Log the name of the property that was changed
 	// UE_LOG(LogTemp, Warning, TEXT("Property Changed: %s"), *PropertyChangedEvent.Property->GetName());
-	UpdateSettings();
+	// UpdateSettings();
 	InitialiseMesh();
 	
 }

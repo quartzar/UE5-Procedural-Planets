@@ -52,6 +52,9 @@ public:
 
 	// UPROPERTY(EditAnywhere, Category = "Planet Settings")
 	// FColorSettings ColorSettings;
+	
+	UPROPERTY(VisibleAnywhere, Category = "Procedural Settings")
+	UMaterialInstanceDynamic* PlanetMaterial;
 
 private:
 	FRealtimeMeshSectionKey StaticSectionKey;
