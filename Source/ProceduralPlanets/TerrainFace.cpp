@@ -4,11 +4,12 @@
 #include "TerrainFace.h"
 
 
-FTerrainFace::FTerrainFace(const FShapeSettings& ShapeSettings, const int& Resolution, const FVector& LocalUp)
-	: ShapeSettings(ShapeSettings), ShapeGenerator(ShapeSettings), Resolution(Resolution), LocalUp(LocalUp)
+FTerrainFace::FTerrainFace(const FShapeSettings& ShapeSettings, const FShapeGenerator& InGenerator, const int& Resolution, const FVector& LocalUp)
+	: ShapeSettings(ShapeSettings), ShapeGenerator(InGenerator), Resolution(Resolution), LocalUp(LocalUp)
 {
 	AxisA = FVector(LocalUp.Y, LocalUp.Z, LocalUp.X).GetSafeNormal();
-	AxisB = FVector::CrossProduct(LocalUp, AxisA);	
+	AxisB = FVector::CrossProduct(LocalUp, AxisA);
+	// this->ShapeGenerator = InGenerator;
 }
 
 
