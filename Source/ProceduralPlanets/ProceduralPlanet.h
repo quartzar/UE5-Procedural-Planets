@@ -10,6 +10,8 @@
 #include "ShapeSettings.h"
 #include "ShapeGenerator.h"
 #include "TerrainFace.h"
+#include "MinMax.h"
+// #include "Shaders/TerrainFaceShader.usf"
 #include "ProceduralPlanet.generated.h"
 
 
