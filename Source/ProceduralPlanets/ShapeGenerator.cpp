@@ -7,7 +7,7 @@
 FShapeGenerator::FShapeGenerator(const FShapeSettings& ShapeSettings)
 	: Settings(ShapeSettings)
 {
-	// UE_LOG(LogTemp, Warning, TEXT("ShapeGenerator Constructor. NoiseLayers.Num: %d"), Settings.NoiseLayers.Num());
+	UE_LOG(LogTemp, Warning, TEXT("ShapeGenerator Constructor. NoiseLayers.Num: %d"), Settings.NoiseLayers.Num());
 
 	NoiseFilters.SetNum(Settings.NoiseLayers.Num());
 
@@ -16,10 +16,11 @@ FShapeGenerator::FShapeGenerator(const FShapeSettings& ShapeSettings)
 		// NoiseFilters[i] = FNoiseFilter(Settings.NoiseLayers[i].NoiseSettings);
 		NoiseFilters[i] = NoiseFilterFactory::CreateNoiseFilter(Settings.NoiseLayers[i].NoiseSettings);
 	}
+	ElevationMinMax = FMinMax();
 }
 
 
-FVector FShapeGenerator::CalculatePointOnPlanet(const FVector& PointOnUnitSphere)
+FVector FShapeGenerator::CalculatePointOnPlanet(const FVector& PointOnUnitSphere) const
 {
 	// UE_LOG(LogTemp, Warning, TEXT("CalculatePointOnPlanet called. NoiseFilters.Num: %d"), NoiseFilters.Num());
 	
@@ -45,6 +46,10 @@ FVector FShapeGenerator::CalculatePointOnPlanet(const FVector& PointOnUnitSphere
 	}
 
 	// UE_LOG(LogTemp, Warning, TEXT("Elevation: %f"), Elevation);
+	Elevation = Settings.PlanetRadius * (1 + Elevation);
+	ElevationMinMax.AddValue(Elevation);
+	// UE_LOG(LogTemp, Warning, TEXT("Elevation: %f, Current Min: %f, Current Max: %f"), Elevation, ElevationMinMax.GetMin(), ElevationMinMax.GetMax());
 
-	return PointOnUnitSphere * Settings.PlanetRadius * (1 + Elevation);
+
+	return PointOnUnitSphere * Elevation;
 }
