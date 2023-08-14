@@ -18,8 +18,8 @@ struct FFace
 class PROCEDURALPLANETS_API FTerrainFace
 {
 public:
-	FTerrainFace() = default;
-	FTerrainFace(const FShapeSettings& ShapeSettings, const int& Resolution, const FVector& LocalUp);
+	// FTerrainFace() = default;
+	FTerrainFace(const FShapeSettings& ShapeSettings, const FShapeGenerator& InGenerator, const int& Resolution, const FVector& LocalUp);
 	~FTerrainFace() = default;
 
 	FFace ConstructMesh();
@@ -27,7 +27,7 @@ public:
 private:
 
 	FShapeSettings ShapeSettings;
-	FShapeGenerator ShapeGenerator;
+	const FShapeGenerator& ShapeGenerator;
 
 	int Resolution;
 	FVector LocalUp;
