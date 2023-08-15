@@ -47,6 +47,7 @@ void AProceduralPlanet::InitialiseMesh()
 	for (int i = 0; i < 6; i++)
 	{
 		TerrainFaces.Add(FTerrainFace(ShapeSettings, ShapeGenerator, ShapeSettings.Resolution, Directions[i]).ConstructMesh());
+		// UE_LOG(LogTemp, Warning, TEXT("Face %d: Vertices: %d, Triangles: %d"), i, TerrainFaces[i].Vertices.Num(), TerrainFaces[i].Triangles.Num());
 	}
 	
 	// Combine the data from each face
@@ -99,8 +100,8 @@ void AProceduralPlanet::InitialiseMesh()
 
 	const FMinMax& ElevationRange = ShapeGenerator.GetElevationMinMax();
 	PlanetMaterial->SetScalarParameterValue("ElevationMin", ElevationRange.GetMin());
-	UE_LOG(LogTemp, Warning ,TEXT("ElevationMin: %f"), ElevationRange.GetMin());
-	UE_LOG(LogTemp, Warning, TEXT("ElevationMax: %f"), ElevationRange.GetMax());
+	// UE_LOG(LogTemp, Warning ,TEXT("ElevationMin: %f"), ElevationRange.GetMin());
+	// UE_LOG(LogTemp, Warning, TEXT("ElevationMax: %f"), ElevationRange.GetMax());
 	PlanetMaterial->SetScalarParameterValue("ElevationMax", ElevationRange.GetMax());
 	PlanetMaterial->SetScalarParameterValue("Radius", ShapeSettings.PlanetRadius);
 	
@@ -125,8 +126,16 @@ void AProceduralPlanet::PostEditChangeProperty(FPropertyChangedEvent& PropertyCh
 {
 	Super::PostEditChangeProperty(PropertyChangedEvent);
 	// Log the name of the property that was changed
-	// UE_LOG(LogTemp, Warning, TEXT("Property Changed: %s"), *PropertyChangedEvent.Property->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("Property Changed: %s"), *PropertyChangedEvent.Property->GetName());
 	// UpdateSettings();
+
+	// Get the name of the property that was changed
+	// const FName PropertyName = (PropertyChangedEvent.Property != nullptr) ? PropertyChangedEvent.Property->GetFName() : NAME_None;
+	// // If we changed bGenerateAllFaces, set bMeshInitialised to false
+	// if (PropertyName == GET_MEMBER_NAME_CHECKED(FShapeSettings, bGenerateAllFaces))
+	// {
+	// 	bMeshInitialised = false;
+	// }
 	InitialiseMesh();
 	
 }
