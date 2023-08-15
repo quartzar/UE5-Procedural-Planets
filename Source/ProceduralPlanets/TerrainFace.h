@@ -22,7 +22,7 @@ public:
 	FTerrainFace(const FShapeSettings& ShapeSettings, const FShapeGenerator& InGenerator, const int& Resolution, const FVector& LocalUp);
 	~FTerrainFace() = default;
 
-	FFace ConstructMesh();
+	FFace ConstructMesh() const;
 	
 private:
 
