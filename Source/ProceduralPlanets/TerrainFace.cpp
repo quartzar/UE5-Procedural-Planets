@@ -9,11 +9,10 @@ FTerrainFace::FTerrainFace(const FShapeSettings& ShapeSettings, const FShapeGene
 {
 	AxisA = FVector(LocalUp.Y, LocalUp.Z, LocalUp.X).GetSafeNormal();
 	AxisB = FVector::CrossProduct(LocalUp, AxisA);
-	// this->ShapeGenerator = InGenerator;
 }
 
 
-FFace FTerrainFace::ConstructMesh() 
+FFace FTerrainFace::ConstructMesh() const
 {
 	FFace TerrainFace = FFace();
 
@@ -71,6 +70,7 @@ FFace FTerrainFace::ConstructMesh()
 		TerrainFace.VertexNormals[Index1] = FaceNormal;
 		TerrainFace.VertexNormals[Index2] = FaceNormal;
 	}
+	
 	
 	return TerrainFace;
 }
