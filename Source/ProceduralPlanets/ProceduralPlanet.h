@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
-#include "RealtimeMeshSimple.h"
 #include "RealtimeMeshActor.h"
+#include "RealtimeMeshSimple.h"
+#include "GameFramework/Actor.h"
 // #include "ColourSettings.h"
-#include "ShapeSettings.h"
-#include "ShapeGenerator.h"
-#include "TerrainFace.h"
 #include "MinMax.h"
+#include "ShapeGenerator.h"
+#include "ShapeSettings.h"
+#include "TerrainFace.h"
 // #include "Shaders/TerrainFaceShader.usf"
 #include "ProceduralPlanet.generated.h"
 
@@ -58,6 +58,7 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Procedural Settings")
 	UMaterialInstanceDynamic* PlanetMaterial;
 
+	
 private:
 	FRealtimeMeshSectionKey StaticSectionKey;
 
