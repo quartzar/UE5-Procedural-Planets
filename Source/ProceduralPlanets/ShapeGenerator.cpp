@@ -7,7 +7,7 @@
 FShapeGenerator::FShapeGenerator(const FShapeSettings& ShapeSettings)
 	: Settings(ShapeSettings)
 {
-	UE_LOG(LogTemp, Warning, TEXT("ShapeGenerator Constructor. NoiseLayers.Num: %d"), Settings.NoiseLayers.Num());
+	// UE_LOG(LogTemp, Warning, TEXT("ShapeGenerator Constructor. NoiseLayers.Num: %d"), Settings.NoiseLayers.Num());
 
 	NoiseFilters.SetNum(Settings.NoiseLayers.Num());
 
