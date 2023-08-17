@@ -58,6 +58,14 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Procedural Settings")
 	UMaterialInstanceDynamic* PlanetMaterial;
 
+	// Gradient to use for the planet's colour
+	UPROPERTY(EditAnywhere, Category = "Procedural Settings")
+	UCurveLinearColor* Gradient;
+
+
+	// editable gradient with percentage values for the planet's colour
+	UPROPERTY(EditAnywhere, Category = "Procedural Settings")
+	
 	
 private:
 	FRealtimeMeshSectionKey StaticSectionKey;
@@ -67,5 +75,7 @@ private:
 	const FVector Directions[6] = {FVector::UpVector, FVector::DownVector, FVector::LeftVector, FVector::RightVector, FVector::ForwardVector, FVector::BackwardVector};
 
 	bool bMeshInitialised;
+
+	bool bIsMeshGenerating;
 	
 };
