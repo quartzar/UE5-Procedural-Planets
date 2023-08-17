@@ -15,7 +15,9 @@ AProceduralPlanet::AProceduralPlanet()
 	DefaultSceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
 	RootComponent = DefaultSceneRoot;
 
+	this->ShapeGenerator = FShapeGenerator(ShapeSettings);
 	bMeshInitialised = false;
+	bIsMeshGenerating = false;
 
 	// FString MaterialPath = "/Game/ProceduralPlanets/Materials/M_Planet_Inst";
 	
@@ -42,6 +44,9 @@ void AProceduralPlanet::OnGenerateMesh_Implementation()
 // Create initial mesh and SectionKey
 void AProceduralPlanet::InitialiseMesh() 
 {
+	if (bIsMeshGenerating) return;
+	bIsMeshGenerating = true;
+	
 	// Create the data for each face
 	TArray<FFace> TerrainFaces;
 	for (int i = 0; i < 6; i++)
@@ -111,6 +116,8 @@ void AProceduralPlanet::InitialiseMesh()
 
 	// delete [] TerrainFaces;
 	TerrainFaces.Empty();
+
+	bIsMeshGenerating = false;
 }
 
 
@@ -127,8 +134,7 @@ void AProceduralPlanet::PostEditChangeProperty(FPropertyChangedEvent& PropertyCh
 	Super::PostEditChangeProperty(PropertyChangedEvent);
 	// Log the name of the property that was changed
 	UE_LOG(LogTemp, Warning, TEXT("Property Changed: %s"), *PropertyChangedEvent.Property->GetName());
-	// UpdateSettings();
-
+	
 	// Get the name of the property that was changed
 	// const FName PropertyName = (PropertyChangedEvent.Property != nullptr) ? PropertyChangedEvent.Property->GetFName() : NAME_None;
 	// // If we changed bGenerateAllFaces, set bMeshInitialised to false
@@ -136,7 +142,11 @@ void AProceduralPlanet::PostEditChangeProperty(FPropertyChangedEvent& PropertyCh
 	// {
 	// 	bMeshInitialised = false;
 	// }
-	InitialiseMesh();
+	if (!bIsMeshGenerating)
+	{
+		UpdateSettings();
+		InitialiseMesh();
+	}
 	
 }
 #endif
