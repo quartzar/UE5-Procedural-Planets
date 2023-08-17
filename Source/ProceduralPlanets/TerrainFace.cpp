@@ -12,7 +12,7 @@ FTerrainFace::FTerrainFace(const FShapeSettings& ShapeSettings, const FShapeGene
 }
 
 
-FFace FTerrainFace::ConstructMesh() const
+FFace FTerrainFace::ConstructMesh() 
 {
 	FFace TerrainFace = FFace();
 
